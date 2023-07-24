@@ -10,6 +10,8 @@ import (
 	"os"
 	"sort"
 	"time"
+
+	grr "github.com/klausbreyer/grr"
 )
 
 var token string
@@ -86,9 +88,6 @@ func fetchFromExportApi(updatedAfter string) ([]Book, error) {
 		results, ok := result["results"].([]interface{})
 		fmt.Println("Got", len(results), "results")
 
-		//debug results
-		fmt.Println(results)
-
 		if ok && len(results) > 0 {
 			for _, item := range results {
 				var book Book
@@ -99,6 +98,7 @@ func fetchFromExportApi(updatedAfter string) ([]Book, error) {
 		}
 
 		nextPageCursor, ok = result["nextPageCursor"].(string)
+		//@todo. check why it is not paging.
 		if !ok || nextPageCursor == "" {
 			break
 		}
@@ -107,38 +107,70 @@ func fetchFromExportApi(updatedAfter string) ([]Book, error) {
 	return fullData, nil
 }
 
-// ... same as before ...
-func toHTML(books []Book) error {
-	tmpl := template.Must(template.New("books").Parse(`
-		<html>
+func getHtml(books []Book, yield ...template.HTML) template.HTML {
+	renderedBooks := make([]template.HTML, len(books))
+	for i, book := range books {
+		renderedBooks[i] = getBook(DataBook{Book: book, BookIndex: i})
+	}
+
+	allRenderedBooks := grr.Flatten(renderedBooks)
+
+	// dataMap := grr.Extend(data)
+	// dataMap["Foot"] = getFoot(DataFoot{Copy: "© 2021"})
+	return grr.Render(`
+			<html>
 		<head>
 			<meta charset="UTF-8">
 			<title>all-the-highlights</title>
 		</head>
 		<body>
-			{{range $bookIndex, $book := .}}
-			<h1> {{$book.Title}}, {{$book.Author}}, {{$book.FirstHighlightYear}}</h1>
-
-			<a href="#{{$bookIndex}}">#{{$bookIndex}}</a>
-				{{range $highlightIndex, $highlight := $book.Highlights}}
-				<ul>
-					<li> {{$highlight.Text | html}}</li>
-
-				</ul>
-				{{end}}
-				<hr/>
-			{{end}}
+			{{yield}}
 		</body>
 		</html>
-	`))
+	`, nil, allRenderedBooks)
+}
 
+type DataBook struct {
+	Book      Book
+	BookIndex int
+}
+
+func getBook(data DataBook, yield ...template.HTML) template.HTML {
+	highlights := getHighlights(DataHighlight{Highlights: data.Book.Highlights})
+
+	// dataMap := grr.Extend(data)
+	// dataMap["Foot"] = getFoot(DataFoot{Copy: "© 2021"})
+	return grr.Render(`
+		<h1> {{.Book.Title}}, {{.Book.Author}}, {{.Book.FirstHighlightYear}}</h1>
+			<a href="#{{.BookIndex}}">#{{.BookIndex}}</a>
+			{{yield}}
+		<hr/>
+	`, data, highlights)
+}
+
+type DataHighlight struct {
+	Highlights []Highlight
+}
+
+func getHighlights(data DataHighlight) template.HTML {
+	return grr.Render(`
+		<ul>
+				{{range $highlightIndex, $highlight := .Highlights}}
+					<li> {{$highlight.Text | html}}</li>
+				{{end}}
+				</ul>
+	`, data)
+}
+
+func toHTML(books []Book) error {
+	html := getHtml(books)
 	file, err := os.Create("dist/index.html")
 	if err != nil {
 		return err
 	}
 	defer file.Close()
 
-	err = tmpl.Execute(file, books)
+	_, err = file.WriteString(string(html))
 	if err != nil {
 		return err
 	}
