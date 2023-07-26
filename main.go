@@ -115,24 +115,72 @@ func getHtml(books []Book, yield ...template.HTML) template.HTML {
 
 	allRenderedBooks := grr.Flatten(renderedBooks)
 
-	// dataMap := grr.Extend(data)
-	// dataMap["Foot"] = getFoot(DataFoot{Copy: "© 2021"})
+	dm := grr.Extend(nil)
+	dm["Css"] = getCss()
+	dm["Head"] = GetHead()
 	return grr.Render(`
 			<html>
 		<head>
 			<meta charset="UTF-8">
 			<title>all-the-highlights</title>
+			{{.Css}}
 		</head>
 		<body>
+		{{.Head}}
 			{{yield}}
 		</body>
 		</html>
-	`, nil, allRenderedBooks)
+	`, dm, allRenderedBooks)
 }
 
 type DataBook struct {
 	Book      Book
 	BookIndex int
+}
+
+func GetHead() template.HTML {
+	return grr.Render(`
+	    <h1>
+        Pocket Highlights from
+        <a href="https://v01.io" target="_blank">Klaus
+                    Breyer</a>
+    </h1>
+    <p>
+        <i>
+            This page is created by an personal open source project of mine called
+
+            <a href="https://github.com/klausbreyer/all-the-highlights" target="_blank">all-the-highlights</a>
+             to
+                        extracts my
+                        Highlights from
+            <a href="https://read.readwise.io" target="_blank">Readwise Reader</a>
+             and format them for
+                        easy copy & pastable into
+            <a href="https://roamresearch.com" target="_blank">Roam Research</a>
+            .
+            <a href="https://v01.io/2020/12/31/pocket-highlights/" target="_blank">Read more in my blog post</a>
+            .
+        </i>
+    </p>
+	`, nil)
+}
+
+func getCss() template.HTML {
+	return grr.Render(`
+    <style>
+    body {
+        max-width: 1024px;
+        margin: auto;
+        font-family: Iowan Old Style, Apple Garamond, Baskerville, Times New Roman, Droid Serif, Times, Source Serif Pro, serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
+    }
+
+    aside, li {
+        line-height: 2;
+        font-weight: 600;
+        letter-spacing: -0.2px;
+    }
+    </style>
+	`, nil)
 }
 
 func getBook(data DataBook, yield ...template.HTML) template.HTML {
