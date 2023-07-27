@@ -6,3 +6,13 @@ github.com/klausbreyer/grr v0.0.2 h1:k/rKV7djS6bz/LyOOgHLVqIlUOUL4QD6Ddo9j/sdN5I
 github.com/klausbreyer/grr v0.0.2/go.mod h1:xn/DSDJRtqSvUnQ7kPdeRu9NkMzGj1imukLTA7ruUoU=
 github.com/klausbreyer/grr v0.0.4 h1:kkzl/ymyNkqIpO5ZzZMdsz57QSvRiMONAD2F2R1fUCM=
 github.com/klausbreyer/grr v0.0.4/go.mod h1:xn/DSDJRtqSvUnQ7kPdeRu9NkMzGj1imukLTA7ruUoU=
+github.com/klausbreyer/grr v0.0.5 h1:MpC97zoaklw+dzmBV9itsxJVFLAKy3HY/e0jqNg8dFg=
+github.com/klausbreyer/grr v0.0.5/go.mod h1:xn/DSDJRtqSvUnQ7kPdeRu9NkMzGj1imukLTA7ruUoU=
+github.com/klausbreyer/grr v0.0.6 h1:qRf9TpPEhClywDi6Rcr3ZLLJIIpXL2PM1w3EoPba9Wo=
+github.com/klausbreyer/grr v0.0.6/go.mod h1:xn/DSDJRtqSvUnQ7kPdeRu9NkMzGj1imukLTA7ruUoU=
+github.com/klausbreyer/grr v0.0.7 h1:9+rUgLsj/RoZo7K/ceA1J+6jagewI87t3czpc9oEuL8=
+github.com/klausbreyer/grr v0.0.7/go.mod h1:xn/DSDJRtqSvUnQ7kPdeRu9NkMzGj1imukLTA7ruUoU=
+github.com/klausbreyer/grr v0.0.8 h1:NjE/YqSFd3ZNtPkQPVZEoUQYOx2Y20ZKqzUXBtJ7v0U=
+github.com/klausbreyer/grr v0.0.8/go.mod h1:xn/DSDJRtqSvUnQ7kPdeRu9NkMzGj1imukLTA7ruUoU=
+github.com/klausbreyer/grr v0.0.9 h1:GeWEQHM5yJUNtUu3zaY6sUz5+PUb2MAFofMWzzr71BM=
+github.com/klausbreyer/grr v0.0.9/go.mod h1:xn/DSDJRtqSvUnQ7kPdeRu9NkMzGj1imukLTA7ruUoU=
