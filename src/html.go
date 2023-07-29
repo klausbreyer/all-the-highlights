@@ -12,17 +12,7 @@ func getHtml(books []Book) template.HTML {
 		renderedBooks[i] = getBook(DataBook{Book: book, BookIndex: i})
 	}
 
-	return grr.Render(
-		struct {
-			Css   template.HTML
-			Head  template.HTML
-			Books template.HTML
-		}{
-			getCss(),
-			GetHead(),
-			grr.Flatten(renderedBooks),
-		},
-		`
+	return grr.Render(`
 			<html>
 		<head>
 			<meta charset="UTF-8">
@@ -34,11 +24,20 @@ func getHtml(books []Book) template.HTML {
 			{{.Books}}
 		</body>
 		</html>
-	`)
+	`,
+		struct {
+			Css   template.HTML
+			Head  template.HTML
+			Books template.HTML
+		}{
+			getCss(),
+			GetHead(),
+			grr.Flatten(renderedBooks),
+		})
 }
 
 func GetHead() template.HTML {
-	return grr.Render(nil, `
+	return grr.Yield(`
 	    <h1>
         Pocket Highlights from
         <a href="https://v01.io" target="_blank">Klaus
@@ -65,7 +64,7 @@ func GetHead() template.HTML {
 }
 
 func getCss() template.HTML {
-	return grr.Render(nil, `
+	return grr.Yield(`
     <style>
     body {
         max-width: 1024px;
@@ -88,7 +87,17 @@ type DataBook struct {
 }
 
 func getBook(data DataBook) template.HTML {
-	return grr.Render(struct {
+	return grr.Render(`
+	<a id="{{.BookIndex}}" href="#{{.BookIndex}}">#{{.BookIndex}}</a>
+		<h2> {{.Book.Title}}, {{.Book.Author}}, {{.Book.FirstHighlightYear}}</h2>
+		<a href="{{.Book.SourceURL}}">{{.Book.SourceURL}}</a>
+
+			<ul>
+
+			{{.Highlights}}
+			</ul>
+		<hr/>
+	`, struct {
 		Book       Book
 		BookIndex  int
 		Highlights template.HTML
@@ -96,24 +105,12 @@ func getBook(data DataBook) template.HTML {
 		data.Book,
 		data.BookIndex,
 		getHighlights(data.Book.Highlights),
-	}, `
-		<h1> {{.Book.Title}}, {{.Book.Author}}, {{.Book.FirstHighlightYear}}</h1>
-			<a id="{{.BookIndex}}" href="#{{.BookIndex}}">#{{.BookIndex}}</a>
-			{{.Highlights}}
-		<hr/>
-	`)
+	})
 }
 
 func getHighlights(highlights []Highlight) template.HTML {
-	return grr.Render(struct {
-		Highlights []Highlight
-	}{
-		highlights,
-	}, `
-		<ul>
-				{{range $highlightIndex, $highlight := .Highlights}}
-					<li> {{$highlight.Text | html}}</li>
-				{{end}}
-				</ul>
-	`)
+	return grr.Map(`
+				<li> {{.Text | html}}</li>
+
+	`, highlights)
 }

@@ -16,3 +16,5 @@ github.com/klausbreyer/grr v0.0.8 h1:NjE/YqSFd3ZNtPkQPVZEoUQYOx2Y20ZKqzUXBtJ7v0U
 github.com/klausbreyer/grr v0.0.8/go.mod h1:xn/DSDJRtqSvUnQ7kPdeRu9NkMzGj1imukLTA7ruUoU=
 github.com/klausbreyer/grr v0.0.9 h1:GeWEQHM5yJUNtUu3zaY6sUz5+PUb2MAFofMWzzr71BM=
 github.com/klausbreyer/grr v0.0.9/go.mod h1:xn/DSDJRtqSvUnQ7kPdeRu9NkMzGj1imukLTA7ruUoU=
+github.com/klausbreyer/grr v0.0.10 h1:z44yj2OBfLCEXqdigWdutPt5tZ0SC3Seg8QMfxLNqdM=
+github.com/klausbreyer/grr v0.0.10/go.mod h1:xn/DSDJRtqSvUnQ7kPdeRu9NkMzGj1imukLTA7ruUoU=
