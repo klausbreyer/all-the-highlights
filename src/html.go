@@ -20,6 +20,16 @@ func getHtml(books []Book) template.HTML {
 			{{.Css}}
 		</head>
 		<body>
+				<script>
+		function copyToClipboard(copyText) {
+			var textArea = document.createElement("textarea");
+			textArea.value = copyText;
+			document.body.appendChild(textArea);
+			textArea.select();
+			document.execCommand("Copy");
+			textArea.remove();
+		}
+		</script>
 		{{.Head}}
 			{{.Books}}
 		</body>
@@ -88,14 +98,14 @@ type DataBook struct {
 
 func getBook(data DataBook) template.HTML {
 	return grr.Render(`
-	<a id="{{.BookIndex}}" href="#{{.BookIndex}}">#{{.BookIndex}}</a>
-		<h2> {{.Book.Title}}, {{.Book.Author}}, {{.Book.FirstHighlightYear}}</h2>
-		<a href="{{.Book.SourceURL}}">{{.Book.SourceURL}}</a>
+<a id="{{.BookIndex}}" href="#{{.BookIndex}}">#{{.BookIndex}}</a>
+		<h2 onclick="copyToClipboard('{{.Book.Title}}, {{.Book.Author}}, {{.Book.FirstHighlightYear}}')" > {{.Book.Title}}, {{.Book.Author}}, {{.Book.FirstHighlightYear}}</h2>
+		<span onclick="copyToClipboard('{{.Book.SourceURL}}')" >{{.Book.SourceURL}}</span>
+		<a href="{{.Book.SourceURL}}">&raquo;</a>
+		<ul>
 
-			<ul>
-
-			{{.Highlights}}
-			</ul>
+		{{.Highlights}}
+		</ul>
 		<hr/>
 	`, struct {
 		Book       Book
