@@ -101,7 +101,7 @@ func getBook(data DataBook) template.HTML {
 <a id="{{.BookIndex}}" href="#{{.BookIndex}}">#{{.BookIndex}}</a>
 		<h2 onclick="copyToClipboard('{{.Book.Title}}, {{.Book.Author}}, {{.Book.FirstHighlightYear}}')" > {{.Book.Title}}, {{.Book.Author}}, {{.Book.FirstHighlightYear}}</h2>
 		<span onclick="copyToClipboard('{{.Book.SourceURL}}')" >{{.Book.SourceURL}}</span>
-		<a href="{{.Book.SourceURL}}">&raquo;</a>
+		<a href="{{.Book.SourceURL}}" target="_blank">&raquo;</a>
 		<ul>
 
 		{{.Highlights}}
