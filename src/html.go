@@ -99,8 +99,8 @@ type DataBook struct {
 func getBook(data DataBook) template.HTML {
 	return grr.Render(`
 <a id="{{.BookIndex}}" href="#{{.BookIndex}}">#{{.BookIndex}}</a>
-		<h2 onclick="copyToClipboard('{{.Book.Title}}, {{.Book.Author}}, {{.Book.FirstHighlightYear}}')" > {{.Book.Title}}, {{.Book.Author}}, {{.Book.FirstHighlightYear}}</h2>
-		<span onclick="copyToClipboard('{{.Book.SourceURL}}')" >{{.Book.SourceURL}}</span>
+		<h2 style="cursor:copy;" onclick="copyToClipboard('{{.Book.Title}}, {{.Book.Author}}, {{.Book.FirstHighlightYear}}')" > {{.Book.Title}}, {{.Book.Author}}, {{.Book.FirstHighlightYear}}</h2>
+		<span onclick="copyToClipboard('{{.Book.SourceURL}}')" style="cursor:copy;" >{{.Book.SourceURL}}</span>
 		<a href="{{.Book.SourceURL}}" target="_blank">&raquo;</a>
 		<ul>
 
