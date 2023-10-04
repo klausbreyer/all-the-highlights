@@ -64,9 +64,9 @@ func GetHead() template.HTML {
             <a href="https://read.readwise.io" target="_blank">Readwise Reader</a>
              and format them for
                         easy copy & pastable into
-            <a href="https://roamresearch.com" target="_blank">Roam Research</a>
+            <a href="https://obsidian.md/" target="_blank">Obsidian</a>
             .
-            <a href="https://v01.io/2020/12/31/pocket-highlights/" target="_blank">Read more in my blog post</a>
+            <a href="https://v01.io/2020/12/31/pocket-highlights/" target="_blank">Read more in my blog post</a> (outdated)
             .
         </i>
     </p>
