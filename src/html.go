@@ -1,7 +1,9 @@
 package src
 
 import (
+	"fmt"
 	"html/template"
+	"strings"
 
 	"github.com/klausbreyer/grr"
 )
@@ -97,13 +99,15 @@ type DataBook struct {
 }
 
 func getBook(data DataBook) template.HTML {
+	// Erstellen Sie die eigene Variable und entfernen Sie alle ":"
+	titleStr := strings.ReplaceAll(fmt.Sprintf("%s, %s, %d", data.Book.Title, data.Book.Author, data.Book.FirstHighlightYear), ":", "")
+
 	return grr.Render(`
 <a id="{{.BookIndex}}" href="#{{.BookIndex}}">#{{.BookIndex}}</a>
-		<h2 style="cursor:copy;" onclick="copyToClipboard('{{.Book.Title}}, {{.Book.Author}}, {{.Book.FirstHighlightYear}}')" > {{.Book.Title}}, {{.Book.Author}}, {{.Book.FirstHighlightYear}}</h2>
+		<h2 style="cursor:copy;" onclick="copyToClipboard('read/{{.TitleStr}}')" >{{.TitleStr}}</h2>
 		<span onclick="copyToClipboard('{{.Book.SourceURL}}')" style="cursor:copy;" >{{.Book.SourceURL}}</span>
-		<a href="{{.Book.SourceURL}}" target="_blank">&raquo;</a>
+		<a href="{{.Book.SourceURL}}" target="_blank">&raquo;&raquo;&raquo;</a>
 		<ul>
-
 		{{.Highlights}}
 		</ul>
 		<hr/>
@@ -111,10 +115,12 @@ func getBook(data DataBook) template.HTML {
 		Book       Book
 		BookIndex  int
 		Highlights template.HTML
+		TitleStr   string
 	}{
 		data.Book,
 		data.BookIndex,
 		getHighlights(data.Book.Highlights),
+		titleStr,
 	})
 }
 
