@@ -1,6 +1,6 @@
-## All The Highlights
+## All The Highlights: Centralizing Readwise Highlights
 
-**All The Highlights** is a tool designed to fetch, process, and display book highlights from Readwise.
+**All The Highlights** streamlines the management and accessibility of book highlights from Readwise. It serves as a crucial bridge between collecting insights and integrating them into personal knowledge systems. By automating the fetching, processing, and displaying of highlights, this tool simplifies the task of managing reading insights, making them easily accessible and usable for further personal or professional development.
 
 ### Features:
 
@@ -26,7 +26,7 @@
 
 - Go programming language (tested with version 1.16).
 - Readwise Export API for fetching the book data and highlights.
-- The `grr` library for rendering HTML templates.
+- The [grr](https://github.com/klausbreyer/grr) library for rendering HTML templates.
 
 ### Contributing:
 
