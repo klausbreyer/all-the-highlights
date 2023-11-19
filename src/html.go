@@ -51,7 +51,7 @@ func getHtml(books []Book) template.HTML {
 func GetHead() template.HTML {
 	return grr.Yield(`
 	    <h1>
-        Pocket Highlights from
+        All the Highlights from
         <a href="https://v01.io" target="_blank">Klaus
                     Breyer</a>
     </h1>

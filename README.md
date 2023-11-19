@@ -1,4 +1,3 @@
-
 ## All The Highlights
 
 **All The Highlights** is a tool designed to fetch, process, and display book highlights from Readwise.
