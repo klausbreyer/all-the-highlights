@@ -28,15 +28,15 @@ jobs:
 
     steps:
       - name: Check out code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Set up Go
-        uses: actions/setup-go@v2
+        uses: actions/setup-go@v5
         with:
-          go-version: 1.16
+          go-version: "1.21"
 
       - name: Get dependencies
-        run: go get -v -t -d ./...
+        run: go mod tidy
 
       - name: Build
         run: go run main.go
@@ -44,13 +44,13 @@ jobs:
           READWISE_TOKEN: ${{ secrets.READWISE_TOKEN }}
 
       - name: Setup Pages
-        uses: actions/configure-pages@v3
+        uses: actions/configure-pages@v4
+
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v2
+        uses: actions/upload-pages-artifact@v3
         with:
-          # Upload entire repository
           path: "dist/"
 
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v2
+        uses: actions/deploy-pages@v4
